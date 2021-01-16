@@ -25,7 +25,7 @@ knitr::read_chunk(here::here('scripts/question3.R'))
 
 <!-- Fig link: \@ref(fig:1.summary) -->
 
-```{r load_data}
+```{r 0.load_data}
 ```
 
 # Q1. Initial data analysis tasks.
@@ -34,6 +34,26 @@ knitr::read_chunk(here::here('scripts/question3.R'))
 ```
 
 ## (i) Summarise the data in the Characteristics.csv dataset, and plot the distributions for the percentage of industrial and commercial customers, transformer ratings and pole or ground monitored substations.
+
+
+```{r 1.i.ggpairs}
+```
+
+- Pole type transformers tend to be of lower rating to groud transformers
+- There is not much of a correlation between the percentage of non-domestic use to the type of transformer.
+- Non-domestic use is more likely with ground than pole type tranformers
+
+
+```{r 1.ii.ggpairs}
+```
+
+
+- Pole transformers tent to have fewer customers, fewer feeders and a lower rating compared to ground transformers
+- The number of feeders correlates positively with the number of customers
+- The fewer the number of customers the more likely they are non-domestic. Less strong for pole transformers
+- Higher rated transformers tend to have more LV-feeders
+- 
+
 
 ## (ii) Using this and other analyses you think appropriate, describe the relationships between the different substation characteristics (transformer type, number of customers, rating, percentage of I&C customers and number of feeders).
 
