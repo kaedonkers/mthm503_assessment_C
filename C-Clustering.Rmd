@@ -1,0 +1,86 @@
+---
+title: "ADSS Assessment: C. Clustering"
+author: "Kevin Donkers (EI CDT) - 700063874"
+date: "16/01/2021"
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: false
+    toc: false
+  bookdown::html_document2:
+    fig_caption: yes
+    number_sections: false
+    smart: no
+---
+```{r setup, include=FALSE}
+library(here)
+library(bookdown)
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, cache=TRUE, warning=FALSE, include=FALSE)
+# knitr::opts_chunk$set(echo=TRUE, message=TRUE, cache=FALSE, warning=FALSE, include=TRUE)
+knitr::read_chunk(here::here('scripts/init.R'))
+knitr::read_chunk(here::here('scripts/question1.R'))
+knitr::read_chunk(here::here('scripts/question2.R'))
+knitr::read_chunk(here::here('scripts/question3.R'))
+```
+
+<!-- Fig link: \@ref(fig:1.summary) -->
+
+```{r load_data}
+```
+
+# Q1. Initial data analysis tasks.
+
+```{r 1.init}
+```
+
+## (i) Summarise the data in the Characteristics.csv dataset, and plot the distributions for the percentage of industrial and commercial customers, transformer ratings and pole or ground monitored substations.
+
+## (ii) Using this and other analyses you think appropriate, describe the relationships between the different substation characteristics (transformer type, number of customers, rating, percentage of I&C customers and number of feeders).
+
+
+
+\pagebreak
+# Q2. Initial clustering tasks
+## Using the scaled daily measurements from the January_2013 dataset perform hierarchical clustering for the daily average demand (that is each 10 minute period for the given substation should be averaged over all days where measurement is available):
+
+```{r 2.init}
+```
+
+## (i) Using your preferred choice of a dissimilarity function, create a distance matrix for these data and produce a dendrogram.
+
+
+## (ii) Choose an appropriate number of clusters and label each substation according to its cluster membership.
+
+
+## (iii) For each of your clusters, plot the daily average demand for 1) All days, 2) Weekdays, 3) Saturdays and 4) Sundays.
+
+
+## (iv) Produce summaries of the variables in Characteristics.csv for each of your clusters.
+
+
+
+## (v) Desribe your clusters based on the information in Characteristics.csv and choose names for them. Describe the patterns of their power demands for each cluster.
+
+
+
+
+
+
+\pagebreak
+# Q3. Allocating new substations
+## The Dataset NewSubstations.csv contains information for five new substations.
+
+```{r 3.init}
+```
+## (i) For each substation, on the same plot, plot the daily average demand for 1) All days, 2) Weekdays, 3) Saturdays and 4) Sundays (one plot per new substation).
+
+
+## (ii) Using k-means (or other version, i.e. based on medians), allocate these new substations to one of your clusters
+
+
+## (iii) Based on your summaries and plots, is the cluster allocation as you expected?
+
+\pagebreak
+# Q4. Exploring differences between years
+
+My apologies, I ran out of time to complete this question.
