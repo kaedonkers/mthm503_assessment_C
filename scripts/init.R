@@ -23,7 +23,7 @@ chars <- read.csv(here::here("data/Characteristics.csv"),
            type=TRANSFORMER_TYPE,
            rating=Transformer_RATING,
            percentage.ic=Percentage_IC,
-           lv.feeder.count=LV_FEEDER_COUNT,
+           feeders=LV_FEEDER_COUNT,
            grid.ref=GRID_REFERENCE) %>%
     mutate(type=replace(type,
                         type=="Grd Mtd Dist. Substation",
