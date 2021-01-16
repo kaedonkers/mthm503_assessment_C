@@ -5,19 +5,18 @@
 daily.avg <- data.2013 %>%
     select(-date) %>%
     group_by(substation) %>%
-    summarise_all(median)
-    # summarise_all(mean)
+    summarise_all(median) %>%
+    # summarise_all(mean) %>%
+    column_to_rownames(var="substation")
+    
 
 medians <- daily.avg %>%
-    select(-substation) %>%
     apply(2, median)
     
 mads <- daily.avg %>%
-    select(-substation) %>%
     apply(2, mad)
 
 scaled <- daily.avg %>%
-    select(-substation) %>%
     scale(center=medians, scale=mads)
 
 # means <- daily.avg %>%
@@ -32,6 +31,47 @@ scaled <- daily.avg %>%
 #     select(-substation) %>%
 #     scale(center=means, scale=sds)
 
-## @knitr 2.raw.smrs
+## @knitr 2.i.dist
 
-dist(scaled)
+data.dist <- dist(scaled)
+
+
+## @knitr 2.i.dend.plot
+
+data.hc = hclust(data.dist)
+
+plot(data.hc, hang=-1)
+
+
+## @knitr 2.ii.clusters
+
+data.groups <- cutree(data.hc, 7) %>%
+    enframe(name="substation", value="group") %>%
+    mutate(substation=as.integer(substation))
+
+data.2013.grouped <- data.2013 %>%
+    merge(data.groups, by="substation", all.x=TRUE) %>%
+    relocate(group, .after=date)
+
+daily.grouped <- daily.avg %>%
+    rownames_to_column("substation") %>%
+    merge(data.groups, by="substation", all.x=TRUE) %>%
+    relocate(group, .after=substation) 
+
+
+## @knitr 2.iii.alldays
+
+# 1. Filter by day
+# 2. groupby cluster
+# 4. scatter plot for each cluster,
+#    x=time of day, 
+
+data.2013 %>%
+    ggplot(aes())
+
+daily.grouped %>%
+    filter(group==1) %>%
+    gather("time", "demand", -c(substation, group)) %>%
+    mutate(time=as.numeric(time)) %>%
+    ggplot(aes(x=time, y=demand)) +
+    geom_point()
