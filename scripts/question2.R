@@ -45,7 +45,8 @@ plot(data.hc, hang=-1)
 
 ## @knitr 2.ii.clusters
 
-data.groups <- cutree(data.hc, 7) %>%
+# data.groups <- cutree(data.hc, 7) %>%
+data.groups <- cutree(data.hc, 14) %>%
     enframe(name="substation", value="group") %>%
     mutate(substation=as.integer(substation))
 
@@ -66,12 +67,17 @@ daily.grouped <- daily.avg %>%
 # 4. scatter plot for each cluster,
 #    x=time of day, 
 
-data.2013 %>%
-    ggplot(aes())
+# data.2013 %>%
+#     ggplot(aes())
 
 daily.grouped %>%
     filter(group==1) %>%
     gather("time", "demand", -c(substation, group)) %>%
-    mutate(time=as.numeric(time)) %>%
-    ggplot(aes(x=time, y=demand)) +
-    geom_point()
+    mutate(hour=as.numeric(time)/6) %>%
+    group_by(substation) %>%
+    mutate(demand.n=(demand-min(demand))/(max(demand)-min(demand))) %>%
+    
+    ggplot(aes(x=hour, y=demand.n)) +
+    geom_point(size=1, alpha=0.2, color='red') +
+    scale_x_continuous(breaks=seq(0, 24, 2),
+                       limits=c(0, 24))
