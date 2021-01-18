@@ -31,6 +31,7 @@ Code for wrangling data:
 ```{r 0LoadData, include=TRUE, echo=TRUE}
 ```
 
+\pagebreak
 # Q1. Initial data analysis tasks.
 
 ```{r 1Init}
@@ -44,12 +45,13 @@ I was plotted a pairs plot using the `GGally` function `ggpairs()`. This allowed
 ```
 
 Here is what I found from the pairs plot:
+
 - Pole type transformers tend to be of lower rating to groud transformers
 - There is not much of a correlation between the percentage of non-domestic use to the type of transformer.
 - Non-domestic use is more likely with ground than pole type tranformers
 
 
-
+\pagebreak
 ## (ii) Using this and other analyses you think appropriate, describe the relationships between the different substation characteristics (transformer type, number of customers, rating, percentage of I&C customers and number of feeders).
 
 I plotted anothers pairs plot which allowed further comparison with number of customers, rating and number of feeders (see Figure \@ref(fig:1iiGgpairs)).
@@ -58,6 +60,7 @@ I plotted anothers pairs plot which allowed further comparison with number of cu
 ```
 
 Here are my comments:
+
 - Pole transformers tend to have fewer customers, fewer feeders and a lower rating compared to ground transformers
 - The number of feeders correlates positively with the number of customers
 - The fewer the number of customers the more likely they are non-domestic. Less strong for pole transformers
@@ -72,6 +75,7 @@ Code for scaling daily averages:
 ```{r 2Init, include=TRUE, echo=TRUE}
 ```
 
+\pagebreak
 ## (i) Using your preferred choice of a dissimilarity function, create a distance matrix for these data and produce a dendrogram.
 
 Here I used the `dist()` function to determine the disimilarity of the substations.
@@ -84,7 +88,7 @@ I could then plot a dendogram (Figure \@ref(fig:2iDendPlot)):
 ```{r 2iDendPlot, include=TRUE, echo=TRUE, fig.cap="Dendogram of substation data"}
 ```
 
-
+\pagebreak
 ## (ii) Choose an appropriate number of clusters and label each substation according to its cluster membership.
 
 We can cut the dendogram using `cutree()` to the number of clusters we want (in this case I chose 7). Then we can assign these cluster values to their corresponding substation.
@@ -92,16 +96,17 @@ We can cut the dendogram using `cutree()` to the number of clusters we want (in 
 ```{r 2iiClusters, include=TRUE, echo=TRUE}
 ```
 
+\pagebreak
 ## (iii) For each of your clusters, plot the daily average demand for 1) All days, 2) Weekdays, 3) Saturdays and 4) Sundays.
 
-Due to time constraints, I was only able to plot the daily average demand for "1) All days", which is in Figure \@ref(fig:2iiiAlldays):
+Due to time constraints, I was only able to plot the daily average demand for "1) All days", which is in Figure \@ref(fig:2iiiAlldays).
 
 ```{r 2iiiAlldays, include=TRUE, fig.cap="The seven clusters of usage profiles of all the substations, for all days of the week."}
 ```
 
 We can see similarities in shape between some clusters (e.g. 2, 4 and 5 have similar profile shapes but differing average demand). We can see that the clustering has managed to pick up unusual profiles with very few members, such as cluster 7 which has a peak demand some time around 1-3am. 
 
-
+\pagebreak
 ## (iv) Produce summaries of the variables in Characteristics.csv for each of your clusters.
 
 Did not answer - ran out of time
