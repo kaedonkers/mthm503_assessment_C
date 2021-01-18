@@ -1,14 +1,12 @@
 # Code for question2
 
-## @knitr 2.init
+## @knitr 2Init
 
 daily.avg <- data.2013 %>%
     select(-date) %>%
     group_by(substation) %>%
     summarise_all(median) %>%
-    # summarise_all(mean) %>%
     column_to_rownames(var="substation")
-    
 
 medians <- daily.avg %>%
     apply(2, median)
@@ -19,34 +17,21 @@ mads <- daily.avg %>%
 scaled <- daily.avg %>%
     scale(center=medians, scale=mads)
 
-# means <- daily.avg %>%
-#     select(-substation) %>%
-#     apply(2, mean)
-# 
-# sds <- daily.avg %>%
-#     select(-substation) %>%
-#     apply(2, sd)
-# 
-# scaled_mean <- daily.avg %>%
-#     select(-substation) %>%
-#     scale(center=means, scale=sds)
-
-## @knitr 2.i.dist
+## @knitr 2iDist
 
 data.dist <- dist(scaled)
 
 
-## @knitr 2.i.dend.plot
+## @knitr 2iDendPlot
 
 data.hc = hclust(data.dist)
 
 plot(data.hc, hang=-1)
 
 
-## @knitr 2.ii.clusters
+## @knitr 2iiClusters
 
 data.groups <- cutree(data.hc, 7) %>%
-# data.groups <- cutree(data.hc, 18) %>%
     enframe(name="substation", value="group") %>%
     mutate(substation=as.integer(substation))
 
@@ -60,18 +45,9 @@ daily.grouped <- daily.avg %>%
     relocate(group, .after=substation) 
 
 
-## @knitr 2.iii.alldays
-
-# 1. Filter by day
-# 2. groupby cluster
-# 4. scatter plot for each cluster,
-#    x=time of day, 
-
-# data.2013 %>%
-#     ggplot(aes())
+## @knitr 2iiiAlldays
 
 daily.grouped %>%
-    # filter(group==1) %>%
     gather("time", "demand", -c(substation, group)) %>%
     mutate(hour=as.numeric(time)/6) %>%
     group_by(substation) %>%

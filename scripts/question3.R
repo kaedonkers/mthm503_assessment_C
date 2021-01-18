@@ -1,6 +1,6 @@
 # Code for question 3
 
-## @knitr 3.init
+## @knitr 3Init
 library(ggplot2)
 
 new <- read.csv(here::here("data/NewSubstations.csv"), 
@@ -11,17 +11,16 @@ new.long <- new %>%
     gather("time", "demand", -c(substation, date)) %>%
     mutate(hour=as.numeric(str_replace(time, "X", "")))
 
-## @knitr 3.i.plot.allday
+## @knitr 3iPlotAllday
 
 
 
-## @knitr 3.ii.kmeans
+## @knitr 3iiKmeans
 
 new.avg <- new %>%
     select(-date) %>%
     group_by(substation) %>%
     summarise_all(median) %>%
-    # summarise_all(mean) %>%
     column_to_rownames(var="substation")
 
 daily.avg %>%
@@ -33,6 +32,7 @@ km.2 <- new.avg %>%
 
 km.2$centers
 
+## @knitr 3iiNumClusters
 
 wssplot <- function(data, nc=4, seed=467){
     wss <- (nrow(data)-1)*sum(apply(data, 2, var))

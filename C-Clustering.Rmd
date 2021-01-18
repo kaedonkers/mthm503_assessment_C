@@ -23,65 +23,92 @@ knitr::read_chunk(here::here('scripts/question2.R'))
 knitr::read_chunk(here::here('scripts/question3.R'))
 ```
 
-<!-- Fig link: \@ref(fig:1.summary) -->
+<!-- Fig link: \@ref(fig:TagNoSpecialChars) -->
+# 0. Setup
 
-```{r 0.load_data}
+Code for wrangling data:
+
+```{r 0LoadData, include=TRUE, echo=TRUE}
 ```
 
 # Q1. Initial data analysis tasks.
 
-```{r 1.init}
+```{r 1Init}
 ```
 
 ## (i) Summarise the data in the Characteristics.csv dataset, and plot the distributions for the percentage of industrial and commercial customers, transformer ratings and pole or ground monitored substations.
 
+I was plotted a pairs plot using the `GGally` function `ggpairs()`. This allowed comparison of percentage industrial/commercial customers vs transformer ratings, grouped by pole/ground label (see Figure \@ref(fig:1iGgpairs)).
 
-```{r 1.i.ggpairs}
+```{r 1iGgpairs, include=TRUE, echo=TRUE, fig.cap="Summary of percentage industrial/commercial customers vs transformer ratings, grouped by pole/group transformer labels."}
 ```
 
+Here is what I found from the pairs plot:
 - Pole type transformers tend to be of lower rating to groud transformers
 - There is not much of a correlation between the percentage of non-domestic use to the type of transformer.
 - Non-domestic use is more likely with ground than pole type tranformers
 
 
-```{r 1.ii.ggpairs}
-```
-
-
-- Pole transformers tent to have fewer customers, fewer feeders and a lower rating compared to ground transformers
-- The number of feeders correlates positively with the number of customers
-- The fewer the number of customers the more likely they are non-domestic. Less strong for pole transformers
-- Higher rated transformers tend to have more LV-feeders
-- 
-
 
 ## (ii) Using this and other analyses you think appropriate, describe the relationships between the different substation characteristics (transformer type, number of customers, rating, percentage of I&C customers and number of feeders).
 
+I plotted anothers pairs plot which allowed further comparison with number of customers, rating and number of feeders (see Figure \@ref(fig:1iiGgpairs)).
+
+```{r 1iiGgpairs, include=TRUE, echo=TRUE, fig.cap="Summary of substation characteristics, grouped by pole/group transformer labels."}
+```
+
+Here are my comments:
+- Pole transformers tend to have fewer customers, fewer feeders and a lower rating compared to ground transformers
+- The number of feeders correlates positively with the number of customers
+- The fewer the number of customers the more likely they are non-domestic. Less strong for pole transformers
+- Higher rated transformers tend to have more LV-feeders
 
 
 \pagebreak
 # Q2. Initial clustering tasks
 ## Using the scaled daily measurements from the January_2013 dataset perform hierarchical clustering for the daily average demand (that is each 10 minute period for the given substation should be averaged over all days where measurement is available):
 
-```{r 2.init}
+Code for scaling daily averages:
+```{r 2Init, include=TRUE, echo=TRUE}
 ```
 
 ## (i) Using your preferred choice of a dissimilarity function, create a distance matrix for these data and produce a dendrogram.
 
+Here I used the `dist()` function to determine the disimilarity of the substations.
+
+```{r 2iDist, include=TRUE, echo=TRUE}
+```
+
+I could then plot a dendogram (Figure \@ref(fig:2iDendPlot)):
+
+```{r 2iDendPlot, include=TRUE, echo=TRUE, fig.cap="Dendogram of substation data"}
+```
+
 
 ## (ii) Choose an appropriate number of clusters and label each substation according to its cluster membership.
 
+We can cut the dendogram using `cutree()` to the number of clusters we want (in this case I chose 7). Then we can assign these cluster values to their corresponding substation.
+
+```{r 2iiClusters, include=TRUE, echo=TRUE}
+```
 
 ## (iii) For each of your clusters, plot the daily average demand for 1) All days, 2) Weekdays, 3) Saturdays and 4) Sundays.
+
+Due to time constraints, I was only able to plot the daily average demand for "1) All days", which is in Figure \@ref(fig:2iiiAlldays):
+
+```{r 2iiiAlldays, include=TRUE, fig.cap="The seven clusters of usage profiles of all the substations, for all days of the week."}
+```
+
+We can see similarities in shape between some clusters (e.g. 2, 4 and 5 have similar profile shapes but differing average demand). We can see that the clustering has managed to pick up unusual profiles with very few members, such as cluster 7 which has a peak demand some time around 1-3am. 
 
 
 ## (iv) Produce summaries of the variables in Characteristics.csv for each of your clusters.
 
-
+Did not answer - ran out of time
 
 ## (v) Desribe your clusters based on the information in Characteristics.csv and choose names for them. Describe the patterns of their power demands for each cluster.
 
-
+Did not answer - ran out of time
 
 
 
@@ -90,15 +117,24 @@ knitr::read_chunk(here::here('scripts/question3.R'))
 # Q3. Allocating new substations
 ## The Dataset NewSubstations.csv contains information for five new substations.
 
-```{r 3.init}
-```
+
 ## (i) For each substation, on the same plot, plot the daily average demand for 1) All days, 2) Weekdays, 3) Saturdays and 4) Sundays (one plot per new substation).
 
+Did not answer - ran out of time
 
 ## (ii) Using k-means (or other version, i.e. based on medians), allocate these new substations to one of your clusters
 
+I quickly ran a `kmeans()` clustering on the new data but because there are only 5 entries I was not able to cluster to the 7 clusters identified in hierarchical clustering.
+
+Therefore I figured it would be best ot merge the old and new substation datasets and run `kmeans()` on this merged dataset, aiming to identify 7 clusters and then finding which clusters the five entries from the new dataset ended up in.
+
+However, I ran out of time to wrangle the new data to be mergeable with the old data, given they have 144 columns with slightly differing names.
+
+I also thought it might be possible to pull out some characteristics of the hierarchical clustering (e.g. cluster centres) and used that with a `kmeans()` call on the five new data points, but I couldn't work out how to do that.
 
 ## (iii) Based on your summaries and plots, is the cluster allocation as you expected?
+
+Did not answer - ran out of time
 
 \pagebreak
 # Q4. Exploring differences between years

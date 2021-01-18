@@ -1,11 +1,11 @@
 # Code for question 1
 
-## @knitr 1.init
+## @knitr 1Init
 
 library(ggplot2)
 library(GGally)
 
-## @knitr 1.i.ggpairs
+## @knitr 1iGgpairs
 
 chars %>%
     select(c(type, rating, percentage.ic)) %>%
@@ -17,7 +17,7 @@ chars %>%
             lower=list(continuous=wrap("points", alpha=0.5))
             )
 
-## @knitr 1.ii.ggpairs
+## @knitr 1iiGgpairs
 
 chars %>%
     select(c(type, customers, rating, percentage.ic, feeders)) %>%

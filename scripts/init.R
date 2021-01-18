@@ -1,6 +1,6 @@
 # Initialisation script
 
-## @knitr 0.load_data
+## @knitr 0LoadData
 
 library(tidyverse)
 library(here)
